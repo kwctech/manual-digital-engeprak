@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo Manual Digital — Engeprak | Esteira de Pacote (demonstração)</title>
+  <meta name="description" content="Modelo de manual técnico digital Engeprak para apresentação ao cliente. Conteúdo representativo baseado em esteira de pacote.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <style>
+    :root {
+      --ege-blue: #0092D5;
+      --ege-orange: #E66F39;
+      --ege-navy: #082D43;
+      --ege-coal: #20272C;
+      --ege-graph: #606060;
+      --ege-steel: #B8C2C9;
+      --ege-ice: #F3F6F7;
+      --ege-white: #ffffff;
+      --danger: #d64545;
+      --warn: #e6a23c;
+      --ok: #2fa36b;
+      --font-title: "Barlow Condensed", sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --sidebar: 320px;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--ege-navy);
+      color: var(--ege-steel);
+      display: flex;
+      min-height: 100vh;
+      line-height: 1.65;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(0,146,213,.18), transparent 55%),
+        radial-gradient(ellipse 40% 30% at 0% 100%, rgba(230,111,57,.1), transparent 50%),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: auto, auto, 36px 36px, 36px 36px;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--ege-navy); }
+    ::-webkit-scrollbar-thumb { background: #1a4a63; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--ege-blue); }
+
+    .mobile-toggle {
+      display: none; position: fixed; top: 14px; right: 14px; z-index: 50;
+      background: var(--ege-blue); color: #fff; border: 0; padding: 10px 12px;
+      border-radius: 8px; cursor: pointer;
+    }
+    .sidebar {
+      width: var(--sidebar); flex-shrink: 0; height: 100vh; position: sticky; top: 0;
+      background: linear-gradient(180deg, #061f2e 0%, var(--ege-navy) 100%);
+      border-right: 1px solid rgba(0,146,213,.25);
+      display: flex; flex-direction: column; padding: 22px 18px; overflow-y: auto; z-index: 20;
+    }
+    .brand {
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(184,194,201,.15);
+    }
+    .brand img { width: 100%; max-width: 220px; height: auto; display: block; }
+    .brand-tag {
+      font-family: var(--font-title); font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; font-size: 12px; color: var(--ege-blue);
+    }
+    .brand-sub { font-size: 12px; color: var(--ege-steel); }
+    .search {
+      width: 100%; background: rgba(8,45,67,.6); border: 1px solid rgba(0,146,213,.35);
+      border-radius: 10px; color: #fff; padding: 10px 12px; font: 500 13px var(--font-body);
+      margin-bottom: 16px; outline: none;
+    }
+    .search:focus { border-color: var(--ege-blue); box-shadow: 0 0 0 3px rgba(0,146,213,.2); }
+    .nav-label {
+      font-family: var(--font-title); font-size: 12px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ege-orange); margin: 14px 4px 6px;
+    }
+    .nav a {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      color: var(--ege-steel); padding: 9px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 500;
+    }
+    .nav a:hover, .nav a.active {
+      background: rgba(0,146,213,.15); color: #fff; border: 1px solid rgba(0,146,213,.25);
+    }
+    .nav .material-icons-round { font-size: 18px; color: var(--ege-blue); }
+    .sidebar-foot {
+      margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(184,194,201,.12);
+      font-size: 11px; color: var(--ege-graph);
+    }
+    .sidebar-foot strong { color: var(--ege-blue); }
+
+    .main {
+      flex: 1; overflow-y: auto; height: 100vh; padding: 28px 36px 80px;
+      max-width: 1100px;
+    }
+    .ribbon {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(230,111,57,.15); border: 1px solid rgba(230,111,57,.4);
+      color: #ffb08a; font-family: var(--font-title); letter-spacing: .1em;
+      text-transform: uppercase; font-size: 12px; font-weight: 700;
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+    }
+    .hero {
+      position: relative; overflow: hidden; border-radius: 20px;
+      background: linear-gradient(135deg, #0a354d 0%, var(--ege-navy) 45%, #0c2433 100%);
+      border: 1px solid rgba(0,146,213,.35); padding: 36px 40px 40px; margin-bottom: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+    .hero::after {
+      content: ""; position: absolute; right: -40px; top: -40px; width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(0,146,213,.35), transparent 65%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--font-title); font-weight: 800; font-size: clamp(34px, 5vw, 52px);
+      color: #fff; line-height: 1.05; letter-spacing: .02em; max-width: 16ch; margin-bottom: 12px;
+    }
+    .hero p { max-width: 56ch; color: var(--ege-steel); font-size: 16px; margin-bottom: 22px; }
+    .meta-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .meta {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(184,194,201,.15);
+      border-radius: 12px; padding: 12px 14px;
+    }
+    .meta span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ege-blue); font-weight: 700; margin-bottom: 4px; }
+    .meta strong { color: #fff; font-size: 14px; font-weight: 600; }
+
+    section.block {
+      background: rgba(32,39,44,.55); border: 1px solid rgba(184,194,201,.12);
+      border-radius: 18px; padding: 28px 30px; margin-bottom: 22px;
+      border-top: 3px solid var(--ege-blue); scroll-margin-top: 24px;
+    }
+    section.block.alt { border-top-color: var(--ege-orange); }
+    .sec-kicker {
+      font-family: var(--font-title); font-size: 13px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ege-blue); font-weight: 700; margin-bottom: 6px;
+    }
+    .sec-kicker.orange { color: var(--ege-orange); }
+    h2 {
+      font-family: var(--font-title); font-weight: 800; font-size: 32px;
+      color: #fff; letter-spacing: .02em; margin-bottom: 10px; line-height: 1.1;
+    }
+    h3 {
+      font-family: var(--font-title); font-weight: 700; font-size: 22px;
+      color: #fff; margin: 18px 0 8px;
+    }
+    p { margin-bottom: 12px; color: var(--ege-steel); }
+    strong { color: #e8eef2; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+    .card {
+      background: rgba(8,45,67,.45); border: 1px solid rgba(0,146,213,.2);
+      border-radius: 14px; padding: 16px;
+    }
+    .card h4 {
+      font-family: var(--font-title); font-size: 18px; color: #fff; margin-bottom: 6px;
+    }
+    .card.orange { border-color: rgba(230,111,57,.35); }
+    .card.orange h4 { color: #ffb08a; }
+
+    table.data {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      margin: 14px 0 6px; overflow: hidden; border-radius: 12px;
+      border: 1px solid rgba(0,146,213,.25);
+    }
+    table.data th {
+      background: rgba(0,146,213,.18); color: #fff; text-align: left;
+      font-family: var(--font-title); font-size: 14px; letter-spacing: .04em;
+      padding: 12px 14px; font-weight: 700;
+    }
+    table.data td {
+      padding: 11px 14px; border-top: 1px solid rgba(184,194,201,.1);
+      color: var(--ege-steel); font-size: 14px; background: rgba(8,45,67,.35);
+    }
+    table.data tr:nth-child(even) td { background: rgba(8,45,67,.55); }
+    .code {
+      font-family: ui-monospace, monospace; font-size: 12.5px;
+      color: var(--ege-blue); background: rgba(0,146,213,.12);
+      padding: 2px 7px; border-radius: 6px;
+    }
+
+    .alert {
+      border-radius: 12px; padding: 14px 16px; margin: 14px 0;
+      border: 1px solid transparent;
+    }
+    .alert.info { background: rgba(0,146,213,.12); border-color: rgba(0,146,213,.35); }
+    .alert.warn { background: rgba(230,111,57,.12); border-color: rgba(230,111,57,.4); }
+    .alert.danger { background: rgba(214,69,69,.12); border-color: rgba(214,69,69,.4); }
+    .alert strong { display: block; margin-bottom: 4px; color: #fff; }
+
+    ol.steps, ul.bullets { margin: 8px 0 12px 20px; }
+    ol.steps li, ul.bullets li { margin-bottom: 8px; color: var(--ege-steel); }
+
+    .figure {
+      margin: 16px 0; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(184,194,201,.15); background: #061824;
+    }
+    .figure img { width: 100%; display: block; max-height: 280px; object-fit: cover; opacity: .92; }
+    .figure figcaption {
+      padding: 10px 14px; font-size: 12px; color: var(--ege-graph);
+      border-top: 1px solid rgba(184,194,201,.1);
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      font-weight: 700; font-size: 14px; padding: 11px 16px; border-radius: 10px;
+      font-family: var(--font-body);
+    }
+    .btn.primary { background: var(--ege-blue); color: #fff; }
+    .btn.accent { background: var(--ege-orange); color: #fff; }
+    .btn.ghost { background: transparent; color: #fff; border: 1px solid rgba(184,194,201,.35); }
+
+    .footer-credit {
+      margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(184,194,201,.15);
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      font-size: 12px; color: var(--ege-graph);
+    }
+    .footer-credit .kwc { color: #7d9; }
+
+    .watermark {
+      position: fixed; right: 24px; bottom: 18px; pointer-events: none;
+      font-family: var(--font-title); font-size: 56px; font-weight: 800;
+      color: rgba(0,146,213,.06); letter-spacing: .08em; z-index: 0;
+    }
+
+    @media (max-width: 960px) {
+      .meta-grid, .cards { grid-template-columns: 1fr 1fr; }
+      .sidebar { position: fixed; transform: translateX(-105%); transition: .25s; }
+      .sidebar.open { transform: none; }
+      .mobile-toggle { display: block; }
+      .main { padding: 24px 18px 70px; }
+    }
+    @media (max-width: 640px) {
+      .meta-grid, .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><span class="material-icons-round">menu</span></button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="imagens/logo-engeprak-escuro.png" alt="Engeprak">
+      <div class="brand-tag">Manual técnico digital</div>
+      <p class="brand-sub">Modelo de apresentação · Engenharia com alma de aço</p>
+    </div>
+    <input class="search" id="busca" type="search" placeholder="Buscar no manual…">
+    <nav class="nav" id="nav">
+      <div class="nav-label">Início</div>
+      <a href="#capa" class="active"><span class="material-icons-round">home</span> Capa</a>
+      <a href="#identificacao"><span class="material-icons-round">badge</span> Identificação</a>
+      <div class="nav-label">1 · Geral</div>
+      <a href="#dimensoes"><span class="material-icons-round">straighten</span> Dimensões</a>
+      <a href="#tracao"><span class="material-icons-round">settings</span> Sistema de tração</a>
+      <a href="#componentes"><span class="material-icons-round">view_module</span> Componentes</a>
+      <div class="nav-label">2 · Operação</div>
+      <a href="#operacao"><span class="material-icons-round">play_circle</span> Instruções</a>
+      <div class="nav-label">3 · Manutenção</div>
+      <a href="#manutencao"><span class="material-icons-round">build</span> Plano preventivo</a>
+      <a href="#diagnostico"><span class="material-icons-round">troubleshoot</span> Diagnóstico</a>
+      <div class="nav-label">4 · Segurança</div>
+      <a href="#seguranca"><span class="material-icons-round">health_and_safety</span> NR-12</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div><strong>ENGEPRAK</strong> · modelo comercial</div>
+      <div>Conteúdo demonstrativo (esteira de pacote)</div>
+      <div style="margin-top:8px">Execução digital: <strong>KWC Industrial TECH</strong></div>
+    </div>
+  </aside>
+
+  <main class="main" id="conteudo">
+    <section class="hero" id="capa">
+      <div class="ribbon">Modelo para apresentação ao cliente</div>
+      <h1>Esteira de pacote</h1>
+      <p>
+        Manual digital no padrão visual <strong>Engeprak</strong>. Este arquivo é um <strong>modelo demonstrativo</strong>:
+        a estrutura e o tom seguem um manual real de esteira; os dados são representativos para apresentação.
+      </p>
+      <div class="meta-grid">
+        <div class="meta"><span>Equipamento</span><strong>Esteira de pacote</strong></div>
+        <div class="meta"><span>Código modelo</span><strong>EP.DEMO.1001</strong></div>
+        <div class="meta"><span>Cliente / marca</span><strong>Engeprak</strong></div>
+        <div class="meta"><span>Documentação</span><strong>Digital · HTML</strong></div>
+      </div>
+    </section>
+
+    <section class="block" id="identificacao">
+      <div class="sec-kicker">Identificação</div>
+      <h2>O que este modelo entrega</h2>
+      <p>
+        Um manual navegável (sidebar, busca, seções técnicas) com a identidade Engeprak:
+        azul <span class="code">#0092D5</span>, laranja <span class="code">#E66F39</span>,
+        tipografia Barlow Condensed + Inter, fundos navy e elementos de engenharia.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h4>Digital</h4>
+          <p>HTML único, abre no navegador, ideal para tablet no chão e apresentação comercial.</p>
+        </article>
+        <article class="card orange">
+          <h4>Conteúdo amostra</h4>
+          <p>Baseado na lógica de uma esteira de pacote (dims, tração, operação, NR-12).</p>
+        </article>
+        <article class="card">
+          <h4>Próximo passo</h4>
+          <p>Trocar códigos, fotos e tabelas pelo equipamento real do pedido.</p>
+        </article>
+      </div>
+      <figure class="figure">
+        <img src="imagens/capa-marca.png" alt="Identidade Engeprak">
+        <figcaption>Referência de marca — Manual de Identidade Visual Engeprak (MIV).</figcaption>
+      </figure>
+    </section>
+
+    <section class="block" id="dimensoes">
+      <div class="sec-kicker">1 · Informações gerais</div>
+      <h2>Dimensões e dados principais</h2>
+      <p>Valores <strong>representativos</strong> para demonstração — substituir pelos dados do projeto.</p>
+      <table class="data">
+        <thead>
+          <tr><th>Parâmetro</th><th>Valor</th><th>Unidade</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Comprimento útil</td><td>6.000</td><td>mm</td></tr>
+          <tr><td>Largura útil</td><td>800</td><td>mm</td></tr>
+          <tr><td>Altura de trabalho</td><td>900</td><td>mm</td></tr>
+          <tr><td>Velocidade de linha</td><td>12 – 35</td><td>m/min</td></tr>
+          <tr><td>Capacidade estimada</td><td>1.200</td><td>kg</td></tr>
+          <tr><td>Massa aproximada</td><td>1.850</td><td>kg</td></tr>
+          <tr><td>Alimentação</td><td>380 V / 60 Hz / 3~</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block alt" id="tracao">
+      <div class="sec-kicker orange">1 · Informações gerais</div>
+      <h2>Sistema de tração</h2>
+      <h3>01 · Motorização</h3>
+      <p>
+        Conjunto motor-redutor com proteção de acoplamento. Em operação real, o manual lista
+        o código da peça (ex.: <span class="code">EP.1001.012</span>) e o torque de serviço.
+      </p>
+      <h3>02 · Tambor / rolete de tração</h3>
+      <p>
+        Tambor revestido, alinhamento por tensionadores laterais. Inspeção visual de desgaste
+        a cada turno nas primeiras 40 horas.
+      </p>
+      <div class="alert info">
+        <strong>Dado de apresentação</strong>
+        Em um projeto real, esta seção leva fotos isométricas do conjunto e a árvore de códigos KWC/Engeprak.
+      </div>
+    </section>
+
+    <section class="block" id="componentes">
+      <div class="sec-kicker">1 · Informações gerais</div>
+      <h2>Componentes principais</h2>
+      <table class="data">
+        <thead>
+          <tr><th>Código (ex.)</th><th>Descrição</th><th>Qtd</th><th>Material</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="code">EP.1001.M00</span></td><td>Montagem principal</td><td>1</td><td>—</td></tr>
+          <tr><td><span class="code">EP.1001.001</span></td><td>Longarina esquerda</td><td>1</td><td>ASTM A36</td></tr>
+          <tr><td><span class="code">EP.1001.002</span></td><td>Longarina direita</td><td>1</td><td>ASTM A36</td></tr>
+          <tr><td><span class="code">EP.1001.010</span></td><td>Chapa de transição</td><td>2</td><td>Aço 1/4"</td></tr>
+          <tr><td><span class="code">EP.1001.020</span></td><td>Proteção NR-12 — lateral</td><td>4</td><td>Chapa / tela</td></tr>
+          <tr><td><span class="code">COM.MOT.001</span></td><td>Motor-redutor (comercial)</td><td>1</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="cta-row">
+        <a class="btn primary" href="#manutencao">Ver plano de manutenção</a>
+        <a class="btn ghost" href="#seguranca">Ir para NR-12</a>
+      </div>
+    </section>
+
+    <section class="block alt" id="operacao">
+      <div class="sec-kicker orange">2 · Operação</div>
+      <h2>Instruções de operação</h2>
+      <ol class="steps">
+        <li>Confirme proteções NR-12 fechadas e EPIs do operador.</li>
+        <li>Verifique tensão da correia/esteira e alinhamento dos roletes.</li>
+        <li>Energize o painel, teste botão de emergência e reset.</li>
+        <li>Partida em velocidade mínima; avance até o setpoint de produção.</li>
+        <li>Ao encerrar: pare a linha, bloqueie energia (LOTO) se houver manutenção.</li>
+      </ol>
+      <div class="alert danger">
+        <strong>Emergência</strong>
+        Acione o botão de emergência mais próximo. Não remova proteções com a máquina energizada.
+      </div>
+    </section>
+
+    <section class="block" id="manutencao">
+      <div class="sec-kicker">3 · Manutenção</div>
+      <h2>Plano preventivo (amostra)</h2>
+      <table class="data">
+        <thead>
+          <tr><th>Intervalo</th><th>Atividade</th><th>Responsável</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Diário</td><td>Inspeção visual de proteções e ruídos anormais</td><td>Operação</td></tr>
+          <tr><td>Semanal</td><td>Lubrificação de mancais / tensionamento</td><td>Manutenção</td></tr>
+          <tr><td>Mensal</td><td>Reaperto estrutural e checagem de alinhamento</td><td>Manutenção</td></tr>
+          <tr><td>Semestral</td><td>Revisão do conjunto de tração e painel</td><td>Técnico especializado</td></tr>
+        </tbody>
+      </table>
+      <div class="alert warn">
+        <strong>LOTO</strong>
+        Antes de qualquer intervenção: desligar, bloquear e etiquetar a fonte de energia.
+      </div>
+    </section>
+
+    <section class="block alt" id="diagnostico">
+      <div class="sec-kicker orange">3 · Manutenção</div>
+      <h2>Diagnóstico rápido</h2>
+      <div class="cards">
+        <article class="card">
+          <h4>Esteira torta</h4>
+          <p>Ajuste tensionadores laterais em passos curtos; confira paralelismo das longarinas.</p>
+        </article>
+        <article class="card orange">
+          <h4>Ruído no redutor</h4>
+          <p>Verificar nível de óleo, acoplamento e folga de fixação da base.</p>
+        </article>
+        <article class="card">
+          <h4>Dispara proteção</h4>
+          <p>Checar sobrecarga, travamento mecânico e sensors de emergência.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="seguranca">
+      <div class="sec-kicker">4 · Normas</div>
+      <h2>Segurança · NR-12</h2>
+      <div class="cards">
+        <article class="card">
+          <h4>Proteções fixas</h4>
+          <p>Zonas de nip e transmissão fechadas; remoção só com ferramenta e LOTO.</p>
+        </article>
+        <article class="card">
+          <h4>Comando</h4>
+          <p>Emergência acessível; reinício voluntário após falha.</p>
+        </article>
+        <article class="card orange">
+          <h4>Sinalização</h4>
+          <p>Pictogramas de risco mecânico e elétrico nos pontos críticos.</p>
+        </article>
+      </div>
+      <div class="cta-row">
+        <a class="btn accent" href="https://wa.me/5547999542756" target="_blank" rel="noopener">Falar com a KWC</a>
+        <a class="btn primary" href="../60.0000 - IDENTIDADE VISUAL/Engeprak - Manual de Identidade Visual.pdf" target="_blank" rel="noopener">Abrir MIV Engeprak</a>
+      </div>
+      <div class="footer-credit">
+        <div>
+          <strong style="color:#fff">Engeprak</strong> — Engenharia com alma de aço<br>
+          Modelo de manual digital para apresentação comercial
+        </div>
+        <div class="kwc">
+          Documentação digital desenvolvida por<br>
+          <strong>KWC Industrial TECH</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="watermark">ENGEPRAK</div>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    document.getElementById('menuBtn').onclick = () => sidebar.classList.toggle('open');
+    const links = [...document.querySelectorAll('#nav a')];
+    links.forEach(a => a.addEventListener('click', () => {
+      links.forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
+      sidebar.classList.remove('open');
+    }));
+    const busca = document.getElementById('busca');
+    busca.addEventListener('input', () => {
+      const q = busca.value.trim().toLowerCase();
+      document.querySelectorAll('section.block, .hero').forEach(sec => {
+        sec.style.display = !q || sec.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
