@@ -26,3 +26,15 @@ MIV completo: `..\60.0000 - IDENTIDADE VISUAL\`
 ## Conteúdo
 
 Seções: capa, identificação, dimensões, tração, componentes, operação, manutenção, diagnóstico, NR-12.
+
+## Recursos Adicionados
+
+- **Cards com hover effects**: `data-card`, `component-box`, `alert-box`, `img-wrapper`
+- **Rodapé fixo**: "Desenvolvido por KWC Industrial TECH" aparece apenas na área do manual (não sobre a sidebar)
+- **Layout responsivo**: sidebar colapsável em dispositivos móveis, grids adaptáveis
+- **Performance**: Imagens com lazy loading (`loading="lazy"`)
+- **GitHub**: Repositório em https://github.com/kwctech/manual-digital-engeprak
+
+## Build
+
+Gere com `python _build_esteira_engeprak.py` (baseado no manual FCOMP).
